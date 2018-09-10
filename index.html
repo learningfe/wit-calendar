@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>倒计时</title>
+    <style>
+        .bg {
+            background-color: #111;
+        }
+        .main {
+            padding-top: 100px;
+            text-align: center;
+            font-size: 12px;
+            color: #eee;
+        }
+        #seconds {
+            padding-top: 30px;
+            font-size: 45px;
+            font-family: '黑体';
+            font-weight: bolder;
+        }
+        #seconds > span {
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body class="bg">
+    <div class="main">
+        <div>距离 2018 年考研还剩</div>
+        <div id="seconds"></div>
+    </div>
+
+    <script>
+        var text = document.getElementById('seconds');
+        var bg = document.getElementsByClassName('bg')[0];
+
+        var shine = function() {
+            var n = 222;
+            var timer = setInterval(function() {
+                n -= 5;
+                bg.style.backgroundColor = 'rgb(' + n + ',' + n + ',' + n + ')';
+                if(n <= 0) {
+                    clearInterval(timer);
+                }
+            }, 10);
+        }
+
+        var seconds = 0;
+        var mode = 1;
+
+        var changeMode = function() {
+            mode = mode === 1 ? 2 : 1;
+        }
+
+        var refreshSeconds = function() {
+            var final = new Date('2018/12/23').getTime();
+            var now = new Date().getTime();
+            
+            var diff = parseInt((final - now) / 1000)
+            if(seconds !== diff) {
+                seconds = diff;
+                if(mode === 1) {
+                    text.innerHTML = seconds + '<br><span>秒</span>';
+                } else {
+                    var date = parseInt(seconds / (24 * 60 * 60));
+                    var hour = parseInt(seconds % (24 * 60 * 60) / (60 * 60));
+                    var minute = parseInt(seconds % (60 * 60) / 60)
+                    var second = seconds % 60;
+                    text.innerHTML = date + '<span> 天 </span>' + hour + '<span> 小时 </span>' + minute + '<span> 分 </span>' + second + '<span> 秒 </span>';
+                }
+                shine();
+            }
+        }
+
+        setInterval(refreshSeconds, 10);
+
+        document.addEventListener('click', changeMode);
+    </script>
+</body>
+</html>
