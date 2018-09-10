@@ -10,7 +10,7 @@
             background-color: #111;
         }
         .main {
-            padding-top: 100px;
+            padding-top: 180px;
             text-align: center;
             font-size: 12px;
             color: #eee;
@@ -24,6 +24,18 @@
         #seconds > span {
             font-size: 12px;
         }
+        #modal {
+            display: none;
+            position: absolute;
+            top: 400px;
+            left: 50%;
+            width: 200px;
+            margin-left: -100px;
+            color: #ccc;
+            text-align: center;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
     </style>
 </head>
 <body class="bg">
@@ -31,10 +43,12 @@
         <div>距离 2018 年考研还剩</div>
         <div id="seconds"></div>
     </div>
+    <div id="modal">换个死法！</div>
 
     <script>
         var text = document.getElementById('seconds');
         var bg = document.getElementsByClassName('bg')[0];
+        var modal = document.getElementById('modal');
 
         var shine = function() {
             var n = 222;
@@ -76,7 +90,13 @@
 
         setInterval(refreshSeconds, 10);
 
-        document.addEventListener('click', changeMode);
+        document.addEventListener('click', function() {
+            modal.style.display = 'block';
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 1000);
+            changeMode();
+        });
     </script>
 </body>
 </html>
