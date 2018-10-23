@@ -1,0 +1,107 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  color: #eee;
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font-size: 18px;
+}
+
+#bg-canvas {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background-image: linear-gradient(to top left, #3ab5b0 0%, #3d99be 30%, #56317a 100%);
+}
+
+.timer {
+  margin-top: 100px;
+  margin-bottom: 80px;
+  padding-left: 30px;
+  padding-right: 30px;
+  text-shadow: 0 1px 3px #fed;
+}
+.p1 {
+  padding: 10px 0;
+}
+.p1 > span {
+  font-size: 150%;
+}
+
+.p2 {
+  padding: 20px 0;
+  text-align: center;
+  font-size: 40px;
+  font-weight: bolder;
+}
+.p2 > span {
+  padding: 0 5px;
+  font-size: 16px;
+}
+
+.marquee {
+  margin: 0 30px;
+  line-height: 2;
+  text-shadow: 0 0 1px #fed;
+}
+.p3 {
+  text-align: center;
+}
+.p3 > span {
+  display: inline-block;
+  font-size: 150%;
+  font-weight: bold;
+  color: rgb(255, 208, 0);
+  animation: duang 10s ease-in-out 3s infinite;
+  text-shadow: 0 0 30px rgb(255, 208, 0);
+}
+.p4 {
+  padding: 10px 0;
+  text-align: center;
+  font-weight: bold;
+}
+
+@keyframes duang {
+  0% {transform: rotate(0)}
+  1% {transform: rotate(-20deg)}
+  2% {transform: rotate(0)}
+  3% {transform: rotate(20deg)}
+  4% {transform: rotate(0)}
+  5% {transform: rotate(-20deg)}
+  6% {transform: rotate(0)}
+  7% {transform: rotate(20deg)}
+  8% {transform: rotate(0)}
+}
+
+#msg {
+  transition: all 1000ms ease-in-out;
+}
+.rotate {
+  transform: rotateY(1080deg);
+}
+
+.tips {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  margin-left: -30px;
+  width: 60px;
+  height: 60px;
+  background: url(./tap.png);
+  animation: duangduang 10s linear 0s infinite;
+  opacity: 0;
+}
+
+@keyframes duangduang {
+  0% {opacity: 0}
+  8% {opacity: 0.3}
+  16% {opacity: 0}
+  24% {opacity: 0}
+  32% {opacity: 0.3}
+  40% {opacity: 0}
+}

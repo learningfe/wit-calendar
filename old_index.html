@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>倒计时</title>
+    <style>
+        .bg {
+            background-color: #111;
+        }
+        .main {
+            padding-top: 180px;
+            text-align: center;
+            font-size: 12px;
+            color: #eee;
+        }
+        #seconds {
+            padding-top: 30px;
+            font-size: 45px;
+            font-family: '黑体';
+            font-weight: bolder;
+        }
+        #seconds > span {
+            font-size: 12px;
+        }
+        #modal {
+            display: none;
+            position: absolute;
+            top: 450px;
+            left: 50%;
+            width: 200px;
+            margin-left: -100px;
+            color: #ccc;
+            text-align: center;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+        #msg {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body class="bg">
+    <div class="main">
+        <div>距离 2018 年考研还剩</div>
+        <div id="seconds"></div>
+        <div id="msg">世上99%的事情都能用钱解决，剩下的1%，需要更多钱解决。</div>
+    </div>
+    <div id="modal">换个死法！</div>
+
+    <script>
+        var msg = [
+            '万事开头难，然后中间难，最后结尾难。',
+            '世上99%的事情都能用钱解决，剩下的1%，需要更多钱解决。',
+            '只要是石头，哪里都不会发光。',
+            '上帝为你关上一道门的同时，还会顺带夹你的脑子',
+            '对今天解决不了的事，不必着急，因为明天还是解决不了',
+            '时候你不努力一下，你都不知道什么叫绝望。',
+            '等忙完这一阵，就可以接着忙下一阵了。',
+            '世上无难事，只要肯放弃。',
+            '假如生活欺骗了你，不要悲伤，不要心急，反正明天也一样',
+            '又一天过去了。今天过得怎么样，梦想是不是更远了？',
+            '努力了这么久，但凡有点儿天赋，也该有些成功迹象了。',
+            '好的容貌和很多钱，是进入上流社交活动的通行证。',
+            '要是有个地方能出卖自己的灵魂换取物质享受就好了。',
+            '有些人努力了一辈子，就是从社会的四流挤入了三流。',
+            '一提到钱，大家就不是那么亲热了。',
+        ];
+        var text = document.getElementById('seconds');
+        var bg = document.getElementsByClassName('bg')[0];
+        var modal = document.getElementById('modal');
+        var msgWrapper = document.getElementById('msg');
+
+        // 选一条鸡汤
+        var chickenSoupIndex = randomInt(0, msg.length);
+
+        // 更新鸡汤
+        var updateChickenSoup = function() {
+            chickenSoupIndex++;
+            msgWrapper.innerHTML = msg[chickenSoupIndex];
+        }
+        updateChickenSoup();
+
+        // 闪耀动画
+        var shine = function() {
+            var n = 222;
+            var timer = setInterval(function() {
+                n -= 5;
+                bg.style.backgroundColor = 'rgb(' + n + ',' + n + ',' + n + ')';
+                if(n <= 0) {
+                    clearInterval(timer);
+                }
+            }, 10);
+        }
+
+        var seconds = 0;
+        // 时间显示模式 1: 秒, 2: 天时分秒
+        var mode = 1;
+
+        var changeMode = function() {
+            mode = mode === 1 ? 2 : 1;
+        }
+
+        var refreshSeconds = function() {
+            var final = new Date('2018/12/23').getTime();
+            var now = new Date().getTime();
+            
+            var diff = parseInt((final - now) / 1000)
+            if(seconds !== diff) {
+                seconds = diff;
+                if(mode === 1) {
+                    text.innerHTML = seconds + '<br><span>秒</span>';
+                } else {
+                    var date = parseInt(seconds / (24 * 60 * 60));
+                    var hour = parseInt(seconds % (24 * 60 * 60) / (60 * 60));
+                    var minute = parseInt(seconds % (60 * 60) / 60)
+                    var second = seconds % 60;
+                    text.innerHTML = date + '<span> 天 </span>' + hour + '<span> 小时 </span>' + minute + '<span> 分 </span>' + second + '<span> 秒 </span>';
+                }
+                shine();
+            }
+        }
+
+        setInterval(refreshSeconds, 10);
+
+        document.addEventListener('click', function() {
+            modal.style.display = 'block';
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 1000);
+            changeMode();
+            updateChickenSoup();
+        });
+
+        // 随机数
+        function randomInt(min, max) {
+            return Math.floor(Math.random() * (max - min) + min);
+        }
+    </script>
+</body>
+</html>

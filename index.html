@@ -1,102 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>倒计时</title>
-    <style>
-        .bg {
-            background-color: #111;
-        }
-        .main {
-            padding-top: 180px;
-            text-align: center;
-            font-size: 12px;
-            color: #eee;
-        }
-        #seconds {
-            padding-top: 30px;
-            font-size: 45px;
-            font-family: '黑体';
-            font-weight: bolder;
-        }
-        #seconds > span {
-            font-size: 12px;
-        }
-        #modal {
-            display: none;
-            position: absolute;
-            top: 400px;
-            left: 50%;
-            width: 200px;
-            margin-left: -100px;
-            color: #ccc;
-            text-align: center;
-            border-top: 1px solid #ccc;
-            border-bottom: 1px solid #ccc;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>😄 时间不多了啊</title>
+  <link rel="stylesheet" href="./main.css">
 </head>
-<body class="bg">
-    <div class="main">
-        <div>距离 2018 年考研还剩</div>
-        <div id="seconds"></div>
-    </div>
-    <div id="modal">换个死法！</div>
+<body>
+  <div class="timer">
+    <div class="p1"><span>🎉</span> 距离庆祝我的死期还有</div>
+    <div class="p2" id="date">834759825</div>
+  </div>
 
-    <script>
-        var text = document.getElementById('seconds');
-        var bg = document.getElementsByClassName('bg')[0];
-        var modal = document.getElementById('modal');
+  <div class="marquee">
+    <div class="p3">每日 <span>金</span> 句</div>
+    <div class="p4" id="msg"></div>
+  </div>
 
-        var shine = function() {
-            var n = 222;
-            var timer = setInterval(function() {
-                n -= 5;
-                bg.style.backgroundColor = 'rgb(' + n + ',' + n + ',' + n + ')';
-                if(n <= 0) {
-                    clearInterval(timer);
-                }
-            }, 10);
-        }
+  <div class="tips"></div>
 
-        var seconds = 0;
-        var mode = 1;
-
-        var changeMode = function() {
-            mode = mode === 1 ? 2 : 1;
-        }
-
-        var refreshSeconds = function() {
-            var final = new Date('2018/12/23').getTime();
-            var now = new Date().getTime();
-            
-            var diff = parseInt((final - now) / 1000)
-            if(seconds !== diff) {
-                seconds = diff;
-                if(mode === 1) {
-                    text.innerHTML = seconds + '<br><span>秒</span>';
-                } else {
-                    var date = parseInt(seconds / (24 * 60 * 60));
-                    var hour = parseInt(seconds % (24 * 60 * 60) / (60 * 60));
-                    var minute = parseInt(seconds % (60 * 60) / 60)
-                    var second = seconds % 60;
-                    text.innerHTML = date + '<span> 天 </span>' + hour + '<span> 小时 </span>' + minute + '<span> 分 </span>' + second + '<span> 秒 </span>';
-                }
-                shine();
-            }
-        }
-
-        setInterval(refreshSeconds, 10);
-
-        document.addEventListener('click', function() {
-            modal.style.display = 'block';
-            setTimeout(() => {
-                modal.style.display = 'none';
-            }, 1000);
-            changeMode();
-        });
-    </script>
+  <canvas id="bg-canvas">垃圾浏览器，垃圾电脑，换电脑再来！</canvas>
+  
+  <script src="./main.js"></script>
 </body>
 </html>
