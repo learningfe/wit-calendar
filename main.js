@@ -82,6 +82,7 @@ const chickenSoup = [
   '要是有个地方能出卖自己的灵魂换取物质享受就好了。',
   '有些人努力了一辈子，就是从社会的四流挤入了三流。',
   '一提到钱，大家就不是那么亲热了。',
+  '在你这个年纪段，你怎么还睡得着啊？',
 ];
 
 let whatEver = random(0, chickenSoup.length);
@@ -98,9 +99,9 @@ body.addEventListener('click', function (e) {
   setData('msg', whatEver);
 }, false);
 
-/******************** 死亡倒计时 ********************/
+/******************** 倒计时 ********************/
 
-const final = new Date('2018/12/23 8:30').getTime();
+const final = new Date('2024/05/20 12:00').getTime();
 
 function getTime() {
   const diff = dateDiff(final - Date.now());
