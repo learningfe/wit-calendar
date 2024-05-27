@@ -29,7 +29,7 @@ html, body {
 .p1 {
   padding: 10px 0;
 }
-.p1 > span {
+.p1 > span.icon {
   font-size: 150%;
 }
 

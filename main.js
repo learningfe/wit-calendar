@@ -40,6 +40,7 @@ function bindEvent(key, fn) {
 /*********************** DOM ***********************/
 
 const body = document.body;
+const signWrap = document.querySelector('#sign');
 const dateWrap = document.querySelector('#date');
 const msgWrap = document.querySelector('#msg');
 const canvas = document.querySelector('#bg-canvas');
@@ -47,6 +48,9 @@ const canvas = document.querySelector('#bg-canvas');
 /********************* 事件绑定 *********************/
 
 // 更新时间时, 顺便更新 DOM
+bindEvent('sign', function(val) {
+  signWrap.innerHTML = val;
+});
 bindEvent('time', function(val) {
   dateWrap.innerHTML = val;
 });
@@ -105,14 +109,17 @@ const final = new Date('2024/05/20 12:00').getTime();
 
 function getTime() {
   const diff = dateDiff(final - Date.now());
-  return diff.day + '<span>天</span>' +
+  const time = diff.day + '<span>天</span>' +
   diff.hour + '<span>小时</span>' +
   diff.minute + '<span>分</span>' +
   diff.second + '<span>秒</span>';
+  return { time, sign: diff.sign };
 }
 
 function refresh() {
-  setData('time', getTime());
+  const { sign, time } = getTime();
+  setData('sign', sign < 0 ? '过去了' : '还有');
+  setData('time', time);
 }
 
 /********************* 背景动画 *********************/
@@ -164,7 +171,7 @@ function genItems(count) {
     const speedY = random(-1, -5, 2);
     // 尺寸
     const size = random(2,5);
-    
+
     return { color, opacity, x, y, speedX, speedY, size };
   }
 }
@@ -188,7 +195,7 @@ function step(item) {
   item.speedX *= random(0.91, 0.99, 2);
   // 垂直速度先加后减
   item.speedY += random(0.01, 0.3, 2);
-  
+
   return item;
 }
 
@@ -227,7 +234,9 @@ function random(min, max, float) {
 
 // 毫秒换算为天时分秒, 也就是在算时间差的时候游有用
 function dateDiff(timeStamp) {
-  let rest = timeStamp;
+  const sign = timeStamp < 0 ? -1 : 1;
+
+  let rest = Math.abs(timeStamp);
   // 天
   const day = parseInt(rest / (24 * 60 * 60 * 1000));
   rest = rest % (24 * 60 * 60 * 1000);
@@ -243,7 +252,7 @@ function dateDiff(timeStamp) {
   // 毫秒
   const millisecond = rest;
 
-  return { day, hour, minute, second, millisecond };
+  return { sign, day, hour, minute, second, millisecond };
 }
 
 // 获取浏览器宽高
